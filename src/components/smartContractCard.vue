@@ -1,3 +1,8 @@
+<script setup>
+import ABI from '../util/abi.js';
+import Web3 from 'web3';
+</script>
+
 <template>
     <div
         class="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 w-full max-w-sm">
@@ -56,7 +61,19 @@ export default {
     },
     methods: {
         async publish() {
-            alert('Publishing...');
+            let web3 = new Web3(window.ethereum);
+            let abi = ABI;
+            let contractAddress = "0x848148B6cb41f2A74E444A5Cf40F614471bBfd3e";
+            let contract = new web3.eth.Contract(abi, contractAddress);
+            let a = '123';
+            let b = '456';
+
+            await contract.methods.uploadBlog(a, b).send({
+            from: this.walletAddress,
+            value: web3.utils.toWei('0.000003', 'ether') // 1000 Wei
+            });
+
+            alert('Published...');
         },
         discard() {
             alert('Discarding...');
