@@ -1,3 +1,8 @@
+
+<script>
+import ConnectMetamask from './ConnectMetamask.vue';
+</script>
+
 <template>
     <nav class="bg-white border-gray-200 dark:bg-gray-900">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -15,10 +20,8 @@
                         </svg>
                         <a href="/create" class="flex flex-col justify-center">Create Blog</a>
                     </a>
+                <ConnectMetamask /> 
                 </li>
-                
-                <button class="bg-green-500 p-2 rounded-md font-mono" onclick={}>Connect Metamask
-                </button>
             </ul>
         </div>
     </nav>
