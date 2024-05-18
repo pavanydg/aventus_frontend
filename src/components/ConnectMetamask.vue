@@ -7,7 +7,7 @@ import { userInfoStore } from '../stores/userInfo';
   <div v-if="!loggedIn">
     <button @click="connectToMetaMask">Connect to MetaMask</button>
   </div>
-  <div v-else>
+  <div class="flex flex-row gap-4" v-else>
     <span class="text-white self-center text-s font-semibold whitespace-nowrap">Account : {{ account }}</span>
     <button @click="logout">Logout</button>
   </div>

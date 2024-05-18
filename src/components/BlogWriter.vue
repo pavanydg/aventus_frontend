@@ -1,21 +1,28 @@
+<script setup>
+import axios from 'axios';
+import smartContractCard from './smartContractCard.vue';
+</script>
+
 <template>
+    <div v-if="!gotProvider">
+        <div class="holder p-4">
+            <div class="mb-6">
+                <label for="success" class="block mb-2 text-sm font-medium text-black-700 dark:text-black-500">Configure
+                    Provider
+                </label>
+                <input type="text" id="provider"
+                    class="bg-white border border-gray-300 text-gray-900 dark:text-gray-400 placeholder-gray-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-500"
+                    placeholder="Enter an Ipv4 Address ">
+            </div>
+            <div class="mb-6">
+                <label for="success" class="block mb-2 text-sm font-medium text-black-700 dark:text-black-500">Enter
+                    Title
+                </label>
+                <input type="text" id="success"
+                    class="bg-white border border-gray-300 text-gray-900 dark:text-gray-400 placeholder-gray-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-500"
+                    placeholder="Title">
+            </div>
 
-
-
-
-    <div class="holder p-4">
-
-
-        <div class="mb-6">
-            <label for="success" class="block mb-2 text-sm font-medium text-black-700 dark:text-black-500">Enter Title </label>
-            <input type="text" id="success"
-                class="bg-white border border-gray-300 text-gray-900 dark:text-gray-400 placeholder-gray-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-500"
-                placeholder="Title">
-        </div>
-
-
-
-        <form>
             <div class="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
                 <div class="flex items-center justify-between px-3 py-2 border-b dark:border-gray-600">
                     <div
@@ -138,7 +145,8 @@
 
             <div class="button-lower flex flex-row gap-4">
                 <button type="submit"
-                    class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
+                    class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800"
+                    @click="publishToBackend">
                     Publish post
                 </button>
                 <button type="submit"
@@ -146,16 +154,49 @@
                     Discard post
                 </button>
             </div>
-
-        </form>
+        </div>
+    </div>
+    <div v-else class="flex justify-center items-center h-screen">
+        <smartContractCard :providerUrl="providerUrl" :contentHash="contentHash"/>
     </div>
 
 </template>
 
-<script setup>
-// Any necessary JavaScript logic can go here
-</script>
+<script>
+export default {
+    data() {
+        return {
+            providerUrl : '',
+            contentHash : '',
+            gotProvider: false,
+        }
+    },
+    methods: {
+        async publishToBackend() {
+            const blogTitle = document.getElementById('success').value;
+            const blogContent = document.getElementById('editor').value;
+            const provider = document.getElementById('provider').value || 'localhost';
+            const data = JSON.stringify({
+                "blogTitle": blogTitle,
+                "blogContent": blogContent
+            });
 
-<style scoped>
-/* Add any additional styles if needed */
-</style>
+            try {
+                const response = await axios.post(`http://${provider}:8000/api/upload-blog`, data, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                console.log(response.data);
+                this.gotProvider = true;
+                this.contentHash = response.data.contentHash;
+                this.providerUrl = response.data.providerUrl;
+
+            } catch (error) {
+                console.error(error);
+            }
+        }
+    },
+}
+
+</script>
