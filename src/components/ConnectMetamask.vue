@@ -1,23 +1,27 @@
-<script setup>
+<!-- <script setup>
 import { userInfoStore } from '../stores/userInfo';
-</script>
+</script> -->
 
 <template>
-  <div v-if="!userInfo.loggedIn">
+  {{ console.log(loggedIn) }}
+  <div v-if="!loggedIn">
     <button @click="connectToMetaMask">Connect to MetaMask</button>
   </div>
   <div v-else>
     <span class="text-white self-center text-s font-semibold whitespace-nowrap">Account : {{ account }}</span>
+    <button @click="logout">Logout</button>
   </div>
 </template>
 
 <script>
+import { userInfoStore } from '../stores/userInfo';
 export default {
   data() {
     return {
-      account: null,
+      account: localStorage.getItem('account') || null,
       balance: null,
       accountInfo: null,
+      loggedIn:  JSON.parse(localStorage.getItem('loggedIn')) || false,
     };
   },
   methods: {
@@ -28,16 +32,26 @@ export default {
           const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
           const balance = await window.ethereum.request({ method: 'eth_getBalance', params: [accounts[0]] });
           // Set the first account as the connected account
+          this.loggedIn = true;
           this.account = accounts[0];
           this.balance = balance;
-          console.log(userInfo.loggedIn);
-          userInfo.loggedIn = true;
+          console.log(this.account, this.balance, 'Connected to MetaMask');
+          localStorage.setItem('loggedIn', JSON.stringify(this.loggedIn));
+          localStorage.setItem('account',this.account)
         } catch (error) {
           console.error('User denied account access');
         }
       } else {
         console.error('MetaMask is not installed');
       }
+    },
+    logout() {
+      this.loggedIn = false;
+      this.account = null;
+      localStorage.setItem('loggedIn', JSON.stringify(this.loggedIn));
+          localStorage.setItem('account',this.account)
+      this.balance = null;
+      console.log('Logged out');
     },
   },
 };
