@@ -5,10 +5,13 @@
             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Are you sure you want to
                 Publish?</h5>
         </a>
+        Current Balance : {{ balance }}
+        <br>
+        Wallet Address : {{ walletAddress }}
         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
             <b>Content-Hash:</b> {{ contentHash }} <br>
             <b>Provider URL:</b> <a :href="providerUrl" class="text-blue">Provided Link</a>
-        </p>    
+        </p>
 
         <div class="button-holder flex flex-row gap-4">
             <a href="#" @click="publish"
@@ -28,6 +31,13 @@
 
 <script>
 export default {
+    data() {
+        return {
+            isPublished: false,
+            balance: null,
+            walletAddress: null
+        }
+    },
     props: {
         providerUrl: {
             type: String,
@@ -38,8 +48,14 @@ export default {
             required: true
         }
     },
+    async mounted() {
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        this.balance = await window.ethereum.request({ method: 'eth_getBalance', params: [accounts[0]] });
+        this.balance = (parseInt(this.balance, 16) / Math.pow(10, 18)) + " ETH";
+        this.walletAddress = accounts[0];
+    },
     methods: {
-        publish() {
+        async publish() {
             alert('Publishing...');
         },
         discard() {

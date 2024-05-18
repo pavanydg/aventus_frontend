@@ -1,9 +1,5 @@
-<!-- <script setup>
-import { userInfoStore } from '../stores/userInfo';
-</script> -->
 
 <template>
-  {{ console.log(loggedIn) }}
   <div v-if="!loggedIn">
     <button @click="connectToMetaMask">Connect to MetaMask</button>
   </div>
@@ -14,7 +10,6 @@ import { userInfoStore } from '../stores/userInfo';
 </template>
 
 <script>
-import { userInfoStore } from '../stores/userInfo';
 export default {
   data() {
     return {
@@ -35,6 +30,7 @@ export default {
           this.loggedIn = true;
           this.account = accounts[0];
           this.balance = balance;
+
           console.log(this.account, this.balance, 'Connected to MetaMask');
           localStorage.setItem('loggedIn', JSON.stringify(this.loggedIn));
           localStorage.setItem('account',this.account)
