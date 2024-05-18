@@ -1,7 +1,6 @@
 <template>
   <div>
     <button @click="connectToMetaMask">Connect to MetaMask</button>
-    <p v-if="account">Connected account: {{ account }}</p>
   </div>
 </template>
 
@@ -10,6 +9,9 @@ export default {
   data() {
     return {
       account: null,
+      balance: null,
+      accountInfo: null,
+      loggedIn: false,
     };
   },
   methods: {
@@ -18,8 +20,11 @@ export default {
         try {
           // Request account access if needed
           const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+          const balance = await window.ethereum.request({ method: 'eth_getBalance', params: [accounts[0]] });
           // Set the first account as the connected account
           this.account = accounts[0];
+          this.balance = balance;
+          this.loggedIn = true;
         } catch (error) {
           console.error('User denied account access');
         }
@@ -50,3 +55,4 @@ p {
   font-size: 16px;
 }
 </style>
+

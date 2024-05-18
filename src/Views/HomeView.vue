@@ -6,5 +6,4 @@ import ConnectMetamask from '../components/ConnectMetamask.vue';
 <template>
     <NavBar />
     <ConnectMetamask />
-    
 </template>

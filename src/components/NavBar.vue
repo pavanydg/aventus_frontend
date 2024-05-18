@@ -1,5 +1,5 @@
 
-<script>
+<script setup>
 import ConnectMetamask from './ConnectMetamask.vue';
 </script>
 
@@ -8,7 +8,7 @@ import ConnectMetamask from './ConnectMetamask.vue';
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
                 <!-- <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo" /> -->
-                <span class="text-white self-center text-2xl font-semibold whitespace-nowrap">DecentraWiki</span>
+                <span class="text-white self-center text-2xl font-semibold whitespace-nowrap">🗺️ &nbsp; DecentraWiki</span>
             </a>
             <ul class="flex items-center space-x-4">
                 <li class="flex">
@@ -27,8 +27,12 @@ import ConnectMetamask from './ConnectMetamask.vue';
     </nav>
 </template>
 
-<style scoped>
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-</style>
+
+<script>
+export default {
+    name: 'NavBar',
+    components: {
+        ConnectMetamask
+    }
+}
+</script>
