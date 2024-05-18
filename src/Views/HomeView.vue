@@ -8,8 +8,8 @@
                     A decentralized platform for publishing and sharing information.
                 </p>
                 <div class="button-holder flex flex-row gap-4 justify-center">
-                    <router-link to="/publish" class="btn-primary">Publish Now</router-link>
-                    <router-link to="/publish" class="btn-primary">Read Blogs</router-link>
+                    <router-link to="/publish-blogs" class="btn-primary">Publish Now</router-link>
+                    <router-link to="/read-blogs" class="btn-primary">Read Blogs</router-link>
                 </div>
             </div>
 

@@ -1,6 +1,13 @@
+<script setup>
+import { userInfoStore } from '../stores/userInfo';
+</script>
+
 <template>
-  <div>
+  <div v-if="!userInfo.loggedIn">
     <button @click="connectToMetaMask">Connect to MetaMask</button>
+  </div>
+  <div v-else>
+    <span class="text-white self-center text-s font-semibold whitespace-nowrap">Account : {{ account }}</span>
   </div>
 </template>
 
@@ -11,7 +18,6 @@ export default {
       account: null,
       balance: null,
       accountInfo: null,
-      loggedIn: false,
     };
   },
   methods: {
@@ -24,7 +30,8 @@ export default {
           // Set the first account as the connected account
           this.account = accounts[0];
           this.balance = balance;
-          this.loggedIn = true;
+          console.log(userInfo.loggedIn);
+          userInfo.loggedIn = true;
         } catch (error) {
           console.error('User denied account access');
         }
