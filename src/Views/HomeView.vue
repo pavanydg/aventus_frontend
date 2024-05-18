@@ -13,22 +13,22 @@
                 </div>
             </div>
 
-            <div class="features grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="features grid grid-cols-1 md:grid-cols-3 gap-6 ">
                 <div class="feature bg-white rounded-lg p-6 shadow-md">
-                    <img src="https://i.imgflip.com/8qh8li.jpg" alt="Meme">
+                    <img src="https://i.imgflip.com/8qh8li.jpg" alt="Meme" class="h-96 w-full object-cover object-top">
                     <h2 class="text-2xl font-bold mb-2">Decentralized Publishing 🖥️</h2>
                     <p class="text-base text-gray-700">Say goodbye to centralized control. Publish directly to the
                         decentralized web and earn rewards.</p>
                 </div>
                 <div class="feature bg-white rounded-lg p-6 shadow-md">
 
-                    <img src="https://i.imgflip.com/8qh8i4.jpg" alt="Meme">
+                    <img src="https://i.imgflip.com/8qh8i4.jpg" alt="Meme" class="h-96  object-cover object-top">
                     <h2 class="text-2xl font-bold mb-2">Earn Rewards💵</h2>
                     <p class="text-base text-gray-700">Get rewarded for your contributions with our token-based reward
                         system.</p>
                 </div>
                 <div class="feature bg-white rounded-lg p-6 shadow-md">
-                    <img src="https://i.imgflip.com/8qh8n9.jpg" alt="">
+                    <img src="https://i.imgflip.com/8qh8n9.jpg" alt="" class="h-96 w-full object-cover object-top">
                     <h2 class="text-2xl font-bold mb-2">Community Policing👮</h2>
                     <p class="text-base text-gray-700">Help maintain the integrity of our platform by flagging
                         misinformation and earn rewards for your vigilance.</p>
